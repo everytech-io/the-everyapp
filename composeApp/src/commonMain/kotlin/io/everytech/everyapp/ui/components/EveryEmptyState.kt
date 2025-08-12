@@ -33,66 +33,80 @@ fun EveryEmptyState(
         modifier = modifier
             .fillMaxSize()
             .background(backgroundColor)
-            .padding(horizontal = 24.dp, vertical = 48.dp)
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.weight(0.2f))
-        
-        if (config.showIcon) {
-            Text(
-                text = config.iconEmoji,
-                style = MaterialTheme.typography.displayLarge.copy(
-                    fontSize = config.iconSize.value.sp
-                )
-            )
+        // Main content area (scrollable)
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 24.dp)
+                .padding(top = 48.dp)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(80.dp))
             
-            Spacer(modifier = Modifier.height(config.spacing))
-        }
-        
-        Text(
-            text = config.title,
-            style = config.titleStyle.copy(color = titleColor)
-        )
-        
-        if (config.subtitle.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(8.dp))
-            
-            Text(
-                text = config.subtitle,
-                style = config.subtitleStyle.copy(color = subtitleColor)
-            )
-        }
-        
-        Spacer(modifier = Modifier.height(config.spacing * 1.5f))
-        
-        EveryTextField(
-            config = config.textFieldConfig.copy(value = textValue),
-            onValueChange = { newValue ->
-                textValue = newValue
-                onTextChange(newValue)
-            },
-            modifier = Modifier.fillMaxWidth()
-        )
-        
-        if (config.quickActions.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(config.spacing))
-            
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally)
-            ) {
-                config.quickActions.forEach { action ->
-                    EveryButton(
-                        config = EveryButtonConfig(
-                            text = action.label
-                        ),
-                        onClick = action.onClick
+            if (config.showIcon) {
+                Text(
+                    text = config.iconEmoji,
+                    style = MaterialTheme.typography.displayLarge.copy(
+                        fontSize = config.iconSize.value.sp
                     )
+                )
+                
+                Spacer(modifier = Modifier.height(config.spacing))
+            }
+            
+            Text(
+                text = config.title,
+                style = config.titleStyle.copy(color = titleColor)
+            )
+            
+            if (config.subtitle.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(8.dp))
+                
+                Text(
+                    text = config.subtitle,
+                    style = config.subtitleStyle.copy(color = subtitleColor)
+                )
+            }
+            
+            if (config.quickActions.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(config.spacing * 2))
+                
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally)
+                ) {
+                    config.quickActions.forEach { action ->
+                        EveryButton(
+                            config = EveryButtonConfig(
+                                text = action.label
+                            ),
+                            onClick = action.onClick
+                        )
+                    }
                 }
             }
+            
+            Spacer(modifier = Modifier.height(120.dp))
         }
         
-        Spacer(modifier = Modifier.weight(0.3f))
+        // Bottom input area (fixed at bottom)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(backgroundColor)
+                .padding(horizontal = 24.dp)
+                .padding(bottom = 24.dp, top = 16.dp)
+        ) {
+            EveryTextField(
+                config = config.textFieldConfig.copy(value = textValue),
+                onValueChange = { newValue ->
+                    textValue = newValue
+                    onTextChange(newValue)
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
     }
 }
