@@ -33,7 +33,10 @@ data class EveryEmptyStateConfig(
     val spacing: Dp = 24.dp,
     val backgroundColor: Color? = null,
     val titleColor: Color? = null,
-    val subtitleColor: Color? = null
+    val subtitleColor: Color? = null,
+    val showGenerateButton: Boolean = true,
+    val generateButtonText: String = "Generate App",
+    val onGenerate: () -> Unit = {}
 )
 
 data class QuickActionConfig(

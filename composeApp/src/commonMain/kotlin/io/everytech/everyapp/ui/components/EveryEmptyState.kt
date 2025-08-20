@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -78,12 +79,12 @@ fun EveryEmptyState(
                     horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally)
                 ) {
                     config.quickActions.forEach { action ->
-                        EveryButton(
-                            config = EveryButtonConfig(
-                                text = action.label
-                            ),
-                            onClick = action.onClick
-                        )
+//                        EveryButton(
+//                            config = EveryButtonConfig(
+//                                text = action.label
+//                            ),
+//                            onClick = action.onClick
+//                        )
                     }
                 }
             }
@@ -97,7 +98,8 @@ fun EveryEmptyState(
                 .fillMaxWidth()
                 .background(backgroundColor)
                 .padding(horizontal = 24.dp)
-                .padding(bottom = 24.dp, top = 16.dp)
+                .padding(bottom = 24.dp, top = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             EveryTextField(
                 config = config.textFieldConfig.copy(value = textValue),
@@ -107,6 +109,22 @@ fun EveryEmptyState(
                 },
                 modifier = Modifier.fillMaxWidth()
             )
+            
+            if (config.showGenerateButton && textValue.isNotEmpty()) {
+                Button(
+                    onClick = config.onGenerate,
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = textValue.trim().length > 5
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("✨")
+                        Text(config.generateButtonText)
+                    }
+                }
+            }
         }
     }
 }

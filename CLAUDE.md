@@ -51,6 +51,33 @@ This is a Kotlin Multiplatform project using Compose Multiplatform for UI, targe
 ./gradlew clean          # Clean build artifacts
 ```
 
+## Design System
+
+### Material 3 Expressive Guidelines
+
+This project uses **Material 3 Expressive** - Google's latest design system evolution with enhanced animations, shapes, and components. When implementing UI components, follow these principles:
+
+#### **Component Standards**
+- **Cards**: Use elevated style with 16dp corner radius, support morphing animations
+- **Buttons**: Implement button groups with shape morphing and expressive motion
+- **FAB**: Support FAB menu patterns with contrasting colors and large items
+- **Loading**: Use new M3 Expressive loading indicators with smooth animations
+- **Motion**: Apply `expressiveMotionScheme` for dynamic transitions and morphing
+- **Shapes**: Utilize the 35 new expressive shapes with morphing capabilities
+- **Colors**: Follow dynamic color schemes that adapt to light/dark themes
+
+#### **Animation Requirements**
+- Shape morphing for interactive elements
+- Expressive motion timing (slower, more dramatic than standard)
+- Coordinated group animations for related components
+- Accessibility-first motion with reduced motion support
+
+#### **SDUI Implementation**
+- All components must be server-driven via JSON configuration
+- Support Material 3 Expressive properties (corner radius, motion schemes, colors)
+- Maintain consistency across all platforms (Android, iOS, Web, Desktop)
+- Include proper semantic accessibility labels
+
 ## Architecture
 
 ### Multiplatform Structure
